@@ -22,6 +22,20 @@ const router = (app) => {
     });
   });
 
+  app.get("/api/custom_random/:num", (req, res) => {
+    const num = req.params.num;
+    const tal = _.random(0, num);
+    res.send({
+      number: tal,
+    });
+  });
+
+  app.get("/api/counter", (req, res) => {
+    res.send({
+      message: "hello counter",
+    });
+  });
+
   app.get("/users", (req, res) => {
     pool.query("SELECT * FROM users", (error, result) => {
       if (error) throw error;
