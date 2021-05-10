@@ -1,10 +1,9 @@
 const express = require("express");
 const port = 3002;
-const bodyParser = require("body-parser");
 const app = express();
+const bodyParser = require("body-parser");
 const routes = require("./routes/routes");
 
-// Use Node.js body parsing middleware
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -12,10 +11,8 @@ app.use(
   })
 );
 
-//call routes
 routes(app);
 
-// Start the server
 const server = app.listen(port, (error) => {
   if (error) return console.log(`Error: ${error}`);
 

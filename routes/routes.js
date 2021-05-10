@@ -1,4 +1,6 @@
-//set up routes
+// Load the MySQL pool connection
+const pool = require("../data/config");
+
 const router = (app) => {
   app.get("/", (request, response) => {
     response.send({
@@ -6,21 +8,12 @@ const router = (app) => {
     });
   });
   app.get("/users", (request, response) => {
-    response.send(users);
-  });
+    pool.query("SELECT * FROM users", (error, result) => {
+      if (error) throw error;
 
-  const users = [
-    {
-      id: 1,
-      name: "Richard Hendricks",
-      email: "richard@piedpiper.com",
-    },
-    {
-      id: 2,
-      name: "Bertram Gilfoyle",
-      email: "gilfoyle@piedpiper.com",
-    },
-  ];
+      response.send(result);
+    });
+  });
 };
 
 module.exports = router;
