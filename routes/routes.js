@@ -1,5 +1,6 @@
 const pool = require("../data/config");
 const _ = require("lodash");
+const vowels = ["a", "e", "i", "o", "u"];
 
 const router = (app) => {
   app.get("/api/random", (req, res) => {
@@ -17,9 +18,22 @@ const router = (app) => {
     });
   });
 
+  function countVowels(text) {
+    let counter = 0;
+
+    for (let letter of text.toLowerCase()) {
+      if (vowels.includes(letter)) {
+        counter++;
+      }
+    }
+    console.log(`The text contains ${counter} vowel(s)`);
+    return counter;
+  }
+
   app.post("/api/words", (req, res) => {
-    console.log(req.body.name);
-    res.send(req.body.name);
+    res.send(
+      `${req.body.name} contains ${countVowels(req.body.name)} vowel(s)`
+    );
   });
 
   app.get("/api/counter", (req, res) => {
