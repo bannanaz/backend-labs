@@ -1,8 +1,10 @@
-const pool = require("../data/config");
+//Require packages/libraries
 const _ = require("lodash");
-const vowels = ["a", "e", "i", "o", "u", "å", "ä", "ö"];
+const pool = require("../data/config");
+const vowels = ["a", "e", "i", "o", "u", "y", "å", "ä", "ö"];
 
 const router = (app) => {
+  //Lodash lib is used for generating random number between 0 & 1023.
   app.get("/api/random", (req, res) => {
     const tal = _.random(0, 1023);
     res.send({
@@ -10,6 +12,7 @@ const router = (app) => {
     });
   });
 
+  //Route parameters are named URL segments that are used to capture the value.
   app.get("/api/custom_random/:num", (req, res) => {
     const num = req.params.num;
     const tal = _.random(0, num);
@@ -18,6 +21,8 @@ const router = (app) => {
     });
   });
 
+  //JS-function for counting vowels in word from formfield.
+  //https://dev.to/worldclassdev/javascript-algorithms-1-counting-the-vowels-in-a-string-oftext-5ejl
   function countVowels(text) {
     let counter = 0;
 
@@ -26,15 +31,17 @@ const router = (app) => {
         counter++;
       }
     }
-    console.log(`The text contains ${counter} vowel(s)`);
     return counter;
   }
 
+  //Post request displays result of vowel-count.
   app.post("/api/words", (req, res) => {
     res.send(
       `${req.body.name} contains ${countVowels(req.body.name)} vowel(s)`
     );
   });
+
+  //---------- LABB2 -----------------------
 
   app.get("/api/counter", (req, res) => {
     res.send({
