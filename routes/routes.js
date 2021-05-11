@@ -1,6 +1,6 @@
 const pool = require("../data/config");
 const _ = require("lodash");
-const vowels = ["a", "e", "i", "o", "u"];
+const vowels = ["a", "e", "i", "o", "u", "å", "ä", "ö"];
 
 const router = (app) => {
   app.get("/api/random", (req, res) => {
