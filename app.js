@@ -24,14 +24,17 @@ console.log(path.join(__dirname, "public"));
 //replaces app.get() for routes in route-file
 routes(app);
 
-//get request for index.html
+//get requests for static files
 app.get("/", (req, res) => {
   res.sendFile("./public/index.html", { root: __dirname });
 });
 
-//get request for words.html
 app.get("/api/words", (req, res) => {
   res.sendFile("./public/words.html", { root: __dirname });
+});
+
+app.get("/users", (req, res) => {
+  res.sendFile("./public/users.html", { root: __dirname });
 });
 
 // Starts the server

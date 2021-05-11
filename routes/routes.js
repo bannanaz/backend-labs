@@ -41,21 +41,16 @@ const router = (app) => {
     );
   });
 
-  //---------- LABB2 -----------------------
+  //---------------- LABB2 --------------------
 
-  app.get("/api/counter", (req, res) => {
-    res.send({
-      message: "hello counter",
-    });
-  });
-
+  /*Get all user-info from MySQL db
   app.get("/users", (req, res) => {
     pool.query("SELECT * FROM users", (error, result) => {
       if (error) throw error;
 
       res.send(result);
     });
-  });
+  });*/
 
   // Display a single user by ID
   app.get("/users/:id", (req, res) => {
@@ -69,11 +64,11 @@ const router = (app) => {
   });
 
   // Add a new user
-  app.post("/users", (req, res) => {
-    pool.query("INSERT INTO users SET ?", req.body, (error, result) => {
+  app.post("/users", (request, response) => {
+    pool.query("INSERT INTO users SET ?", request.body, (error, result) => {
       if (error) throw error;
 
-      res.status(201).send(`User added with ID: ${result.insertId}`);
+      response.status(201).send(`User added with ID: ${result.insertId}`);
     });
   });
 
@@ -100,6 +95,11 @@ const router = (app) => {
       if (error) throw error;
 
       res.send("User deleted.");
+    });
+  });
+  app.get("/api/counter", (req, res) => {
+    res.send({
+      message: "hello counter",
     });
   });
 };
