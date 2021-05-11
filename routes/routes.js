@@ -1,12 +1,7 @@
-// Load the MySQL pool connection
 const pool = require("../data/config");
 const _ = require("lodash");
 
 const router = (app) => {
-  app.get("/", (req, res) => {
-    res.sendFile("./public/index.html", { root: __dirname });
-  });
-
   app.get("/api/random", (req, res) => {
     const tal = _.random(0, 1023);
     res.send({
@@ -22,12 +17,9 @@ const router = (app) => {
     });
   });
 
-  app.get("/api/custom_random/:num", (req, res) => {
-    const num = req.params.num;
-    const tal = _.random(0, num);
-    res.send({
-      number: tal,
-    });
+  app.post("/api/words", (req, res) => {
+    console.log(req.body.name);
+    res.send(req.body.name);
   });
 
   app.get("/api/counter", (req, res) => {
