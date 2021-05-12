@@ -5,6 +5,7 @@ const vowels = ["a", "e", "i", "o", "u", "y", "å", "ä", "ö"];
 
 const router = (app) => {
   //Lodash lib is used for generating random number between 0 & 1023.
+  // curl http://localhost:3002/api/random/
   app.get("/api/random", (req, res) => {
     const tal = _.random(0, 1023);
     res.send({
@@ -12,10 +13,17 @@ const router = (app) => {
     });
   });
 
+  //Set num param to random num
+  app.param("num", function (req, res, next, name) {
+    const modified = _.random(0, 1023);
+    req.num = modified;
+    next();
+  });
+
   //Route parameters are named URL segments that are used to capture the value.
+  // curl http://localhost:3002/api/custom_random/:num
   app.get("/api/custom_random/:num", (req, res) => {
-    const num = req.params.num;
-    const tal = _.random(0, num);
+    const tal = _.random(0, req.num);
     res.send({
       number: tal,
     });
@@ -42,15 +50,23 @@ const router = (app) => {
   });
 
   //---------------- LABB2 --------------------
+  // Create new user
+  app.post("/add-user", (request, response) => {
+    pool.query("INSERT INTO users SET ?", request.body, (error, result) => {
+      if (error) throw error;
 
-  /*Get all user-info from MySQL db
+      response.status(201).send(`User added with ID: ${result.insertId}`);
+    });
+  });
+
+  //Get all users from MySQL db
   app.get("/users", (req, res) => {
     pool.query("SELECT * FROM users", (error, result) => {
       if (error) throw error;
 
       res.send(result);
     });
-  });*/
+  });
 
   // Display a single user by ID
   app.get("/users/:id", (req, res) => {
@@ -63,16 +79,8 @@ const router = (app) => {
     });
   });
 
-  // Add a new user
-  app.post("/users", (request, response) => {
-    pool.query("INSERT INTO users SET ?", request.body, (error, result) => {
-      if (error) throw error;
-
-      response.status(201).send(`User added with ID: ${result.insertId}`);
-    });
-  });
-
   // Update an existing user
+  // curl -X PUT -d "name=Lena Pettersson" -d "email=lena@pettersson.com" http://localhost:3002/users/6
   app.put("/users/:id", (req, res) => {
     const id = req.params.id;
 
@@ -88,6 +96,7 @@ const router = (app) => {
   });
 
   // Delete a user
+  //curl -X DELETE http://localhost:3002/users/7
   app.delete("/users/:id", (req, res) => {
     const id = req.params.id;
 

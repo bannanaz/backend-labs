@@ -33,7 +33,7 @@ app.get("/api/words", (req, res) => {
   res.sendFile("./public/words.html", { root: __dirname });
 });
 
-app.get("/users", (req, res) => {
+app.get("/add-user", (req, res) => {
   res.sendFile("./public/users.html", { root: __dirname });
 });
 
