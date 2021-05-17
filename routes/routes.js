@@ -1,6 +1,6 @@
 //Require packages/libraries
-const _ = require("lodash");
-const pool = require("../data/config");
+const _ = require("lodash"),
+  pool = require("../data/config");
 
 //Lodash lib is used for generating random number between 0 & 1023
 const router = (app) => {
@@ -70,9 +70,9 @@ const router = (app) => {
     });
   });
 
-  // Update an existing user
+  // Update existing user
   app.put("/users/:id", (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
 
     pool.query(
       "UPDATE users SET ? WHERE id = ?",
@@ -85,10 +85,9 @@ const router = (app) => {
     );
   });
 
-  // Delete a user
-  //curl -X DELETE http://localhost:3002/users/7
+  // Delete user
   app.delete("/users/:id", (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
 
     pool.query("DELETE FROM users WHERE id = ?", id, (error, result) => {
       if (error) throw error;

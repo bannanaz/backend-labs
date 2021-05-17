@@ -1,7 +1,7 @@
 //Require mysql
 const mysql = require("mysql");
 
-// Set database connection credentials. MAMP för apache-server och Sequel Pro för databasgränssnitt.
+// Set database connection credentials. MAMP för apache-server och Sequel Pro för db-interface.
 const config = {
   host: "localhost",
   user: "root",
