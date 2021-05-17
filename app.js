@@ -1,9 +1,8 @@
-//Express = node.js framework
-//Require packages and set the port
+//Start server, set the port require packages.
 const express = require("express"),
-  path = require("path"),
   app = express(),
   port = 3002,
+  path = require("path"),
   bodyParser = require("body-parser"),
   morgan = require("morgan"),
   routes = require("./routes/routes");
@@ -16,15 +15,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Logs requests
 app.use(morgan("dev"));
 
-//Static serves static files, ex. css, images, html
-//Path is fo routing, __dirname is for the directorys path
+//Serves static files, path is for routing, __dirname is the directorys path
 app.use(express.static(path.join(__dirname, "public")));
 console.log(path.join(__dirname, "public"));
 
 //replaces app.get() for routes in route-file
 routes(app);
 
-//get requests for static files
+//get requests for static html-files
 app.get("/", (req, res) => {
   res.sendFile("./public/index.html", { root: __dirname });
 });
@@ -37,7 +35,7 @@ app.get("/add-user", (req, res) => {
   res.sendFile("./public/users.html", { root: __dirname });
 });
 
-// Starts the server
+// Starts the server.
 const server = app.listen(port, (error) => {
   if (error) return console.log(`Error: ${error}`);
   console.log(`Server listening on port ${server.address().port}`);
