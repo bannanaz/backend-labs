@@ -96,12 +96,14 @@ const router = (app) => {
     });
   });
 
+  // Endpoint for counter add number
   let count = 0;
   app.get("/counter/add", (req, res) => {
     count++;
     res.send({ success: true });
   });
 
+  // Endpoint for counter show number
   app.get("/counter/show", (req, res) => {
     res.send({ count });
   });
