@@ -35,6 +35,10 @@ app.get("/add-user", (req, res) => {
   res.sendFile("./public/users.html", { root: __dirname });
 });
 
+app.get("/toFahrenheit", (req, res) => {
+  res.sendFile("./public/convert.html", { root: __dirname });
+});
+
 // Starts the server.
 const server = app.listen(port, (error) => {
   if (error) return console.log(`Error: ${error}`);

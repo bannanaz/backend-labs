@@ -107,6 +107,20 @@ const router = (app) => {
   app.get("/counter/show", (req, res) => {
     res.send({ count });
   });
+
+  //---------------- LABB3 --------------------
+
+  function toFahrenheit(celsius) {
+    let fahrenheit = 1.8 * celsius + 32;
+    return fahrenheit;
+  }
+
+  app.post("/toFahrenheit", (req, res) => {
+    const { name } = req.body;
+    res.send({
+      fahrenheit: toFahrenheit(name),
+    });
+  });
 };
 
 module.exports = router;

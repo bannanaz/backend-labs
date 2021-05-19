@@ -1,8 +1,9 @@
-//LABB 3
-var expect = require("chai").expect;
-var assert = require("chai").assert;
+const chai = require("chai");
+const expect = require("chai").expect;
+const assert = require("chai").assert;
 var request = require("request");
 const _ = require("lodash");
+should = chai.should();
 
 //Tests for random num API
 describe("Random number API", function () {
@@ -16,9 +17,9 @@ describe("Random number API", function () {
       });
     });
 
-    it("returns a JSON-object", function (done) {
+    it("returns a JSON response", function (done) {
       request(url, function (error, response, body) {
-        expect(JSON.parse(body)).to.be.a("object");
+        expect(response).should.be.a("object");
         done();
       });
     });
@@ -52,9 +53,9 @@ describe("Random number API", function () {
       });
     });
 
-    it("returns a JSON-object", function (done) {
+    it("returns a JSON response", function (done) {
       request(url, function (error, response, body) {
-        expect(JSON.parse(body)).to.be.a("object");
+        expect(response).should.be.a("object");
         done();
       });
     });
@@ -105,6 +106,25 @@ describe("Counter API", function () {
           done();
         });
       });
+    });
+  });
+});
+
+//Tests for Fahrenheit to Celsius endpoint
+describe("Celsius to Fahrenheit API", function () {
+  var url = "http://localhost:3002/toFahrenheit";
+
+  it("returns status 200", function (done) {
+    request(url, function (error, response, body) {
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
+  });
+
+  it("returns a JSON-response", function (done) {
+    request(url, function (error, response, body) {
+      expect(response).should.be.a("object");
+      done();
     });
   });
 });
