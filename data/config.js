@@ -2,13 +2,7 @@
 const mysql = require("mysql");
 
 // Set database connection credentials. MAMP för apache-server och Sequel Pro för db-interface.
-const config = {
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "api",
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
-};
+const config = {};
 
 // Create a MySQL pool that allows multiple connections
 const pool = mysql.createPool(config);
