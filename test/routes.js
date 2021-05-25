@@ -19,13 +19,14 @@ describe("Random number API", function () {
 
     it("returns a JSON response", function (done) {
       request(url, function (error, response, body) {
-        expect(response).should.be.a("object");
+        expect(body).should.be.a("object");
         done();
       });
     });
 
     it("returns a number between 0 and 1023", function (done) {
       request(url, function (error, response, body) {
+        //obj returns { number: 674 }
         const obj = JSON.parse(body);
         assert.isNumber(obj.number, "Error, not a number");
         assert.isAbove(
@@ -55,7 +56,7 @@ describe("Random number API", function () {
 
     it("returns a JSON response", function (done) {
       request(url, function (error, response, body) {
-        expect(response).should.be.a("object");
+        expect(body).should.be.a("object");
         done();
       });
     });
@@ -110,21 +111,55 @@ describe("Counter API", function () {
   });
 });
 
-//Tests for Fahrenheit to Celsius endpoint
-describe("Celsius to Fahrenheit API", function () {
-  var url = "http://localhost:3002/toFahrenheit";
+//Tests for Celsius to Fahrenheit converter
+describe("Temperature converter", function () {
+  describe("Select degrees in Celsius to convert", function () {
+    var url = "http://localhost:3002/convert";
 
-  it("returns status 200", function (done) {
-    request(url, function (error, response, body) {
-      expect(response.statusCode).to.equal(200);
-      done();
+    it("returns status 200", function (done) {
+      request(url, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        done();
+      });
+    });
+    it("returns a JSON-response", function (done) {
+      request(url, function (error, response, body) {
+        expect(body).should.be.a("object");
+        done();
+      });
     });
   });
 
-  it("returns a JSON-response", function (done) {
-    request(url, function (error, response, body) {
-      expect(response).should.be.a("object");
-      done();
+  describe("Celsius to Fahrenheit API", function () {
+    var url = "http://localhost:3002/convert/showFahrenheit";
+
+    it("returns status 200", function (done) {
+      request(url, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it("returns a JSON-response", function (done) {
+      request(url, function (error, response, body) {
+        expect(body).should.be.a("object");
+        done();
+      });
+    });
+
+    it("returns an object with key fahrenheit", function (done) {
+      request(url, function (error, response, body) {
+        expect(JSON.parse(body)).to.have.property("fahrenheit");
+        done();
+      });
+    });
+
+    it("returns an object with a number as value", function (done) {
+      request(url, function (error, response, body) {
+        const obj = JSON.parse(body);
+        assert.isNumber(obj.fahrenheit, "Error, not a number");
+        done();
+      });
     });
   });
 });

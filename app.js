@@ -35,7 +35,7 @@ app.get("/add-user", (req, res) => {
   res.sendFile("./public/users.html", { root: __dirname });
 });
 
-app.get("/toFahrenheit", (req, res) => {
+app.get("/convert", (req, res) => {
   res.sendFile("./public/convert.html", { root: __dirname });
 });
 

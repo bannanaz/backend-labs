@@ -41,6 +41,19 @@ const router = (app) => {
 
   //---------------- LABB2 --------------------
 
+  // API endpoint for counter add number
+  let count = 0;
+  app.get("/counter/add", (req, res) => {
+    count++;
+    res.send({ success: true });
+  });
+
+  // API endpoint for counter show number
+  app.get("/counter/show", (req, res) => {
+    res.send({ count });
+  });
+
+  //CRUD – MySQL database
   // Create new user
   app.post("/add-user", (request, response) => {
     pool.query("INSERT INTO users SET ?", request.body, (error, result) => {
@@ -96,31 +109,19 @@ const router = (app) => {
     });
   });
 
-  // Endpoint for counter add number
-  let count = 0;
-  app.get("/counter/add", (req, res) => {
-    count++;
-    res.send({ success: true });
-  });
-
-  // Endpoint for counter show number
-  app.get("/counter/show", (req, res) => {
-    res.send({ count });
-  });
-
   //---------------- LABB3 --------------------
 
-  function toFahrenheit(celsius) {
-    let fahrenheit = 1.8 * celsius + 32;
-    return fahrenheit;
-  }
-
-  app.post("/toFahrenheit", (req, res) => {
+  let fahrenheit = 0;
+  app.post("/convert/toFahrenheit", (req, res) => {
     const { name } = req.body;
+    fahrenheit = 1.8 * name + 32;
     res.send({
-      fahrenheit: toFahrenheit(name),
+      success: true,
     });
   });
-};
 
+  app.get("/convert/showFahrenheit", (req, res) => {
+    res.send({ fahrenheit });
+  });
+};
 module.exports = router;
